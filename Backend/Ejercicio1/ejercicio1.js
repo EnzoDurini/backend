@@ -9,38 +9,32 @@ class ProductManager{
     }
     addProduct(title,description,price,thumbnail,code,stock){
         let product ={title,description,price,thumbnail,code,stock}
-        let response
-        
-        for (let i = 0; i < this.products.length; i++){
-            if (this.products[i].description === description){
-                console.log(this.products[i].description);
-                console.log(description)
-                console.log("elemento repetido");
-            }
-            response = "Este producto ya esta agregado"
-            break;
-        }
         if (this.products.length === 0){
             product["id"] = 1;
-    }else{
-        product ["id"] = this.products[this.products.length - 1]["id"]+1
-    }
-    this.products.push(product)
-    return response 
-    }
+            this.products.push(product)}
+            else{
+                let verification = this.products.find(prod => prod['code'] === code)
+                if(!verification){
+                    product ["id"] = this.products[this.products.length - 1]["id"]+1
+                    this.products.push(product)
+                }
+                else{
+                    console.log ("Product already exist")
+                }
+            }
+        }
+
 getProductById(prodId){
-        let prod
-        for (let i = 0; i < this.products.length; i++) {
-        if (this.products[i].id !== prodId) {
-            prod = "Product not found"
+        let prod =this.products.find(prod => prod['id'] === prodId)
+            if(prod == null){
+                console.log("Product not found");
+                return null;
             }
             else{
-                prod = this.products[i] + "product found"
-            }  
+                return prod
+            }
         }
-        console.log(prod)
-        }
-      }
+}
 
 
 
