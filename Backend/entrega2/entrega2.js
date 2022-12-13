@@ -94,19 +94,3 @@ class ProductManager{
     }
 
 }
-
-let fileName = "./Products.JSON";
-let products = new ProductManager(fileName);
-
-products.getProducts().then((res) => console.log(res));
-
-products.addProduct('producto prueba', 'Este es un producto prueba', 200, 'Sin imagen', 'abc123', 25).then((res) => console.log(res));
-products.getProductById(1).then(res => console.log(res));
-
-products.getProductById(2).then(res => console.log(res));
-
-products.updateProduct(1, 'update producto prueba', 'Este es un producto prueba', 200, 'Sin', 'abc123', 25).then(()=> products.getProducts().then((res) => console.log(res)));
-
-products.addProduct('producto prueba', 'Este es un producto prueba', 200, 'Sin imagen', 'ac123', 25).then((res) => console.log(res));
-
-products.deleteProduct(3).then(()=> products.getProducts().then((res) => console.log(res)));
