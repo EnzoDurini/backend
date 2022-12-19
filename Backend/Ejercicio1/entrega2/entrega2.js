@@ -10,7 +10,7 @@ class ProductManager{
                 let products = await fs.promises.readFile(this.path, 'utf-8');
                 return JSON.parse(products);
             }else{
-                return products = [];
+                return [];
             }
 
         }catch(error){
@@ -18,7 +18,7 @@ class ProductManager{
         }
     }
     async addProduct(title,description,price,thumbnail,code,stock){
-        
+
         try{
             let product ={title,description,price,thumbnail,code,stock}
         let products = await this.getProducts();
@@ -59,7 +59,7 @@ class ProductManager{
                 console.log(e)
             }
         }
-    
+
     async updateProduct(id, title, description, price, thumbnail, code, stock){
         try {
             let products = await this.getProducts();
@@ -75,7 +75,7 @@ class ProductManager{
             }
         } catch (e) {
             console.log(e);
-            
+
         }
     }
 
@@ -89,7 +89,7 @@ class ProductManager{
             }
         } catch (e) {
             console.log(e);
-            
+
         }
     }
 
@@ -100,5 +100,13 @@ let products = new ProductManager(fileName);
 
 products.getProducts().then((res) => console.log(res));
 
-products.addProduct('producto1', 'Descripcion', 200, 'none', 'code123', 25).then((res) => console.log(res));
+products.addProduct('producto prueba', 'Este es un producto prueba', 200, 'Sin imagen', 'abc123', 25).then((res) => console.log(res));
+products.getProductById(1).then(res => console.log(res));
 
+products.getProductById(2).then(res => console.log(res));
+
+products.updateProduct(1, 'update producto prueba', 'Este es un producto prueba', 200, 'Sin', 'abc123', 25).then(()=> products.getProducts().then((res) => console.log(res)));
+
+products.addProduct('producto prueba', 'Este es un producto prueba', 200, 'Sin imagen', 'ac123', 25).then((res) => console.log(res));
+
+products.deleteProduct(3).then(()=> products.getProducts().then((res) => console.log(res)));
