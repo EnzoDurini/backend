@@ -1,4 +1,5 @@
-const fs = require ('fs')
+import fs from 'fs'
+
 class ProductManager{
     constructor(fileName){ 
         this.path = fileName;
@@ -6,7 +7,7 @@ class ProductManager{
 
     async getProducts(){
         try{
-            if(fs.existsSync(this.path)){
+            if(fs.existsSync(this.path, 'utf-8')){
                 let products = await fs.promises.readFile(this.path, 'utf-8');
                 return JSON.parse(products);
             }else{
@@ -17,6 +18,8 @@ class ProductManager{
             console.log(error);
         }
     }
+
+
     async addProduct(title,description,price,thumbnail,code,stock){
 
         try{
@@ -47,16 +50,14 @@ class ProductManager{
     async getProductById(prodId){
             try{
             let products = await this.getProducts();
-            let prod = products.find(prod => prod['id'] === prodId)
-                if(prod == null){
-                    console.log("Product not found");
-                    return null;
-                }
-                else{
-                    return prod
+            let prod = products.find((product) => product.id === prodId)
+                if(prod != null){
+                    return prod;
+                }else{
+                    console.log('Product not found');
                 }
             }catch(e){
-                console.log(e)
+                console.log(e);
             }
         }
 
@@ -95,8 +96,11 @@ class ProductManager{
 
 }
 
-const fileName = "./Products.JSON";
+const fileName = "./src/Products.json";
 const products = new ProductManager(fileName);
 
-
-export default new ProductManager('./Products.JSON')
+/* products.addProduct('Pan', 'panificado', 300, 'sin imagen', 'Ab1', 30)
+products.addProduct('Salvado', 'panificado', 400, 'sin imagen', 'Ab2', 10)
+products.addProduct('Facturas', 'confiteria', 600, 'sin imagen', 'Ac1', 15)
+products.addProduct('Vigilantes', 'confiteria', 500, 'sin imagen', 'Ac2', 13)  */
+export default new ProductManager('./src/Products.json')
