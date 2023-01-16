@@ -1,0 +1,13 @@
+[
+	{
+		"title": "Pan",
+		"description": "se vende por kilo",
+		"code": "ab12",
+		"price": "500",
+		"status": "true",
+		"stock": "9",
+		"category": "panaderia",
+		"thumbnails": "www.google.com",
+		"id": 1
+	}
+]
